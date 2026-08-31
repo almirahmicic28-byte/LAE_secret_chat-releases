@@ -1,0 +1,9 @@
+{
+  "app": "LAE Weather",
+  "package": "at.almirit.lae.secretchat",
+  "versionCode": 4,
+  "versionName": "0.1.4-dev",
+  "apk": "releases/LAE-Weather-latest.apk",
+  "versionedApk": "releases/LAE-Weather-0.1.4-dev.apk",
+  "sha256": "e7167639949eac94b591f670b7f953bbaac0e18a8643dd045c8c4c16a72e8fd3"
+}
