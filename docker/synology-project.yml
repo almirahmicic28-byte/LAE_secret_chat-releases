@@ -35,14 +35,36 @@ services:
       JWT_AUDIENCE: lae-android
       ACCESS_TOKEN_TTL_SECONDS: 86400
       TRUST_PROXY: "true"
+
       ADMIN_HOST: 0.0.0.0
       ADMIN_PORT: 8081
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       ADMIN_SESSION_SECRET: ${ADMIN_SESSION_SECRET}
+
+      PORTAL_HOST: 0.0.0.0
+      PORTAL_PORT: 8082
+      PORTAL_SESSION_SECRET: ${PORTAL_SESSION_SECRET}
+      PUBLIC_PORTAL_URL: ${PUBLIC_PORTAL_URL:-}
+
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
     ports:
       - "${API_PORT:-18080}:8080"
       - "${ADMIN_PUBLIC_PORT:-18081}:8081"
+      - "${PORTAL_PUBLIC_PORT:-18082}:8082"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - node -e "fetch('http://127.0.0.1:8080/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - lae-chat-network
 
