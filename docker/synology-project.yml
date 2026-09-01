@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:17-bookworm
+    container_name: lae-secret-chat-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: lae_chat
+      POSTGRES_USER: lae_chat
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - /volume1/docker/lae-secret-chat/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lae_chat -d lae_chat"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    image: ghcr.io/almirahmicic28-byte/lae-secret-chat-backend:latest
+    container_name: lae-secret-chat-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 8080
+      DATABASE_URL: postgres://lae_chat:${POSTGRES_PASSWORD}@db:5432/lae_chat
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: lae-secret-chat
+      JWT_AUDIENCE: lae-android
+      ACCESS_TOKEN_TTL_SECONDS: 86400
+      TRUST_PROXY: "true"
+    ports:
+      - "${API_PORT:-8080}:8080"
