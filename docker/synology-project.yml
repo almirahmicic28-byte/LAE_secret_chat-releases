@@ -8,12 +8,15 @@ services:
       POSTGRES_USER: lae_chat
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - /volume1/docker/lae-secret-chat/postgres:/var/lib/postgresql/data
+      - lae-secret-chat-postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U lae_chat -d lae_chat"]
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 20s
+    networks:
+      - lae-chat-network
 
   api:
     image: ghcr.io/almirahmicic28-byte/lae-secret-chat-backend:latest
@@ -32,5 +35,22 @@ services:
       JWT_AUDIENCE: lae-android
       ACCESS_TOKEN_TTL_SECONDS: 86400
       TRUST_PROXY: "true"
+      ADMIN_HOST: 0.0.0.0
+      ADMIN_PORT: 8081
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_SESSION_SECRET: ${ADMIN_SESSION_SECRET}
     ports:
-      - "${API_PORT:-8080}:8080"
+      - "${API_PORT:-18080}:8080"
+      - "${ADMIN_PUBLIC_PORT:-18081}:8081"
+    networks:
+      - lae-chat-network
+
+volumes:
+  lae-secret-chat-postgres:
+    name: lae-secret-chat-postgres
+
+networks:
+  lae-chat-network:
+    name: lae-secret-chat-network
+    driver: bridge
