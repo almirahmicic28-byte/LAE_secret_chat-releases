@@ -1,10 +1,10 @@
 {
   "app": "LAE Weather",
   "package": "at.almirit.lae.secretchat",
-  "versionCode": 405,
-  "versionName": "0.1.405-dev",
-  "apk": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/download/v0.1.405-dev/LAE-Weather-0.1.405-dev.apk",
-  "versionedApk": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/download/v0.1.405-dev/LAE-Weather-0.1.405-dev.apk",
-  "sha256": "ce48bd7848c9d640af6f3f8fced9606067e1f605c89470b251689055f200b247",
-  "release": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/tag/v0.1.405-dev"
+  "versionCode": 406,
+  "versionName": "0.1.406-dev",
+  "apk": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/download/v0.1.406-dev/LAE-Weather-0.1.406-dev.apk",
+  "versionedApk": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/download/v0.1.406-dev/LAE-Weather-0.1.406-dev.apk",
+  "sha256": "5f09db191f5d4cdc8cb6e2af811fbc7349a4b15d155686e8365627a290b96547",
+  "release": "https://github.com/almirahmicic28-byte/LAE_secret_chat-releases/releases/tag/v0.1.406-dev"
 }
